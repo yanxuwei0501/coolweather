@@ -61,7 +61,7 @@ public class WeatherActivity extends AppCompatActivity {
         degreeText=(TextView)findViewById(R.id.degree_text);
         weatherInfoText=(TextView)findViewById(R.id.weather_info_text);
         forecastLayout=(LinearLayout)findViewById(R.id.forecast_layout);
-        apiText=(TextView)findViewById(R.id.api_text);
+        apiText=(TextView)findViewById(R.id.aqi_text);
         pm25Text=(TextView)findViewById(R.id.pm25_text);
         comfortText=(TextView)findViewById(R.id.comfort_text);
         carWashText=(TextView)findViewById(R.id.car_wash_text);
@@ -85,7 +85,7 @@ public class WeatherActivity extends AppCompatActivity {
      */
     public void requestWeather(final String weatherId){
         String weatherUrl="http://guolin.tech/api/weather?cityid="
-                +weatherId+"&key=bc0418b57b2d4918819d3974ac1285d9";
+                +weatherId+"&key=188d6c004b584152b71dc99d16b3e376";
         HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -134,7 +134,8 @@ public class WeatherActivity extends AppCompatActivity {
         weatherInfoText.setText(weatherInfo);
         forecastLayout.removeAllViews();
         for(Forecast forecast:weather.forecastList){
-            View view= LayoutInflater.from(this).inflate(R.layout.forecast_item,forecastLayout,false);
+            View view= LayoutInflater.from(this).inflate(R.layout.forecast_item,
+                    forecastLayout,false);
             TextView dateText=(TextView)view.findViewById(R.id.date_text);
             TextView infoText=(TextView)view.findViewById(R.id.info_text);
             TextView maxText=(TextView)view.findViewById(R.id.max_text);
@@ -146,7 +147,7 @@ public class WeatherActivity extends AppCompatActivity {
             forecastLayout.addView(view);
         }
         if(weather.aqi!=null){
-            apiText.setText(weather.aqi.city.api);
+            apiText.setText(weather.aqi.city.aqi);
             pm25Text.setText(weather.aqi.city.pm25);
         }
         String comfort="舒适度："+weather.suggestion.comfort.info;
